@@ -1,0 +1,126 @@
+initTree :
+	<initializeaza arborele>
+delete:
+	<sterge arborele>
+writeFile:
+	<scrie imaginea in fisier>
+readFile:
+	<citeste imaginea din fisier>
+printFile:
+	<scrie compresia in fisier>
+scanFile:
+	<citeste compresia din fisier>
+
+createTree:
+	<creaza arborele de compresie>
+	-calculeaza valorie medii de pe suprafata
+	-initializeaza nodul cu valorile obtinute
+	-calculeaza valoarea lui mean
+	-daca mean e mai mare decat factorul dat
+		-determina mijlocul laturilor
+		-reapeleaza functia pentru fiecare dintre cele 4 sectiuni formate la impartire in cei 4 fii al nodului
+
+count:
+	<determina numarul frunzelor si al nodurilor>
+	-incrementeaza numarul de noduri
+	-daca fii nodului sun NULL
+		-incrementeaza numarul frunzelor
+	-reapeleaza functia pentru toti cei 4 fii
+createVector:
+	<creeaza vectorul de compresie>
+	-primului element al vectorului ii atribuie radacina
+	-cat timp n(num. elem.) e diferit de node( num. nod )
+		-pentru i de la first(primul nod de pe nivel) la last(ultimul nod de pe nivel + 1)
+			-daca fii nodului sunt NULL
+				-urmatoarelor patru elemente li se atribuie cei 4 fii ai nodului de la elementul i
+				-elementului "i" i se atribuie indicele fiilor
+		-first devine last
+		-last devine n
+compress:
+	<executa compresia imaginii>
+	-citeste in matrice fisierul de intrare
+	-creeaza arborele de compresie cu factorul dat
+	-determina numarul frunzelor si nodurilor aroborelui
+	-creeaza vectorul de compresie
+	-scrie in fisier numarul frunzelor, nodurilor si vectorul
+	-elibereaza memoria
+createTree_D:
+	<creeaza arborele de decompresie>
+	-daca elementul de pe pozitia i nu este frunza
+		- initializeaza fii cu informatiile de la pozitiile corespunzatoare
+	-reapeleaza functia pentru fii
+
+createMatrix:
+	<creeaza matricea>
+	-daca nodul este o frunza
+		-atribuie tuturor pixelilor de pe suprafata informatia din nod
+	-altfel
+		-determina mijlocul laturilor
+		-reapeleaza functia pentru fii nodului pe suprafetele obtinute dupa impartirea in patru
+
+decompress:
+	<executa decompresia impaginii>
+	-citeste vectorul de compresie
+	-creeaza arborele de decompresie
+	-deteremina numarul de pixeli de pe o latura
+	-creeaza matricea imaginii
+	-scrie matricea in fisier
+	-elibereaza memoria
+invers:
+	<inverseaza arborele>
+	-daca tipul e "h"
+		-inverseaza top_left cu top_right si bottom_left cu bottom_right
+	-altfel
+		-inverseaza top_left cu bottom_left si top_right u bottom_right
+	-reapeleaza functia pentru fii nodului
+
+mirror:
+	<inverseaza imaginea>
+	-citeste matricea din fisier
+	-creeaza arborele de compresie
+	-inverseaza arborele
+	-creeaza matricea de decompresie
+	-afiseaza matricea in fisier
+
+middle:
+	<creeaza arborele suprapus>
+	-atribuie tree3 meddile aritmetice RGB ale tree1 si tree2
+	-daca tree1 si tree2 nu sunt frunze
+		-initializeaza cei 4 fii ai nodului;
+		-daca tree1 e frunza
+			-reapeleaza functia pentruu fii tree3, de tree1 si fii tree2 
+		-daca tree2 e frunza
+			-reapeleaza functia pentruu fii tree3, de fii tree1 si tree2
+		-altfel
+			-reapeleaza functia pentruu fii tree3, de fii tree1 si fii tree2  
+
+
+
+bonus:
+	<executa suprapunerea imaginilor>
+	-citeste matricea din prima imagine
+	-creeaza arborele de compresie pentru prima imagine
+	-citeste matricea din a doua imagine
+	-creeaza arborele de compresie pentru a doua imagine
+	-creeaza arborele suprapus
+	-creeaza matricea de decompresie
+	-afiseaza matricea in fisier
+	-elibereaza memoria
+
+main:
+	<program principal>
+	-daca arg1 -c
+		-apeleaza compress
+	-daca arg1 e -d
+		-apeleaza decompress
+	-daca arg1 e -m
+		-apeleaza mirror
+	-daca arg1 e -o
+		-apeleaza bonus
+
+
+
+
+
+
+
